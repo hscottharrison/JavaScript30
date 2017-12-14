@@ -21,7 +21,21 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
 
+    img{
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl{
+      color: var(--base);
+    }
     /*
       misc styles, nothing to do with CSS variables
     */
@@ -43,8 +57,19 @@
       width:100px;
     }
   </style>
-
   <script>
+
+    let controls = document.querySelectorAll('.controls input');
+
+    function updateVariable(){
+      const suffix = this.dataset.sizing || "";
+      let setting = this.name;
+
+      document.documentElement.style.setProperty(`--${setting}`, this.value + suffix)
+    }
+
+    controls.forEach(control => control.addEventListener('change', updateVariable));
+    controls.forEach(control => control.addEventListener('mousemove', updateVariable));
   </script>
 
 </body>
